@@ -2,7 +2,13 @@
   "service_account_file": "sa.json",
   "sitemaps": [
     "https://cabinepopnews.blogspot.com/sitemap.xml",
-    "https://naoaviso.blogspot.com/sitemap.xml"
+    "https://naoaviso.blogspot.com/sitemap.xml",
+    "https://pantufapop.blogspot.com/sitemap.xml",
+    "https://assistatvonlinequalquerlugar.blogspot.com/sitemap.xml",
+    "https://throwbackverse.blogspot.com/sitemap.xml",
+    "https://thepixelvibe.blogspot.com/sitemap.xml",
+    "https://telapixelada.blogspot.com/sitemap.xml",
+    
   ],
   "state_file": "state.json",
   "daily_quota": 190,

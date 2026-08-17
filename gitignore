@@ -1,0 +1,4 @@
+sa.json
+*.json.key
+__pycache__/
+*.pyc

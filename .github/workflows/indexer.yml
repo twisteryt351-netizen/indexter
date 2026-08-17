@@ -1,0 +1,46 @@
+name: GSC Auto Indexer
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # roda no minuto 0 de cada hora (horario UTC)
+  workflow_dispatch: {}    # permite disparar manualmente pela aba Actions
+
+permissions:
+  contents: write   # necessario para o job commitar o state.json atualizado
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configura Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instala dependencias
+        run: pip install -r requirements.txt
+
+      - name: Restaura a chave do service account
+        run: echo "${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}" > sa.json
+
+      - name: Roda o indexador
+        run: python3 indexer.py --config config.json
+
+      - name: Remove a chave (nao deixa residuo no runner)
+        if: always()
+        run: rm -f sa.json
+
+      - name: Salva o state.json atualizado no repositorio
+        run: |
+          git config user.name "gsc-auto-indexer-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet -- state.json; then
+            echo "Nada novo para commitar."
+          else
+            git add state.json
+            git commit -m "chore: atualiza state.json [skip ci]"
+            git push
+          fi

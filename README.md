@@ -116,12 +116,39 @@ Passo a passo:
 3. Edite `config.json` e troque as URLs de exemplo pelos sitemaps reais dos
    seus blogs (o `service_account_file` já está como `"sa.json"`, não mude).
 
-4. Adicione o secret com a chave do service account:
+4. **Adicione o secret com a chave do service account (em base64, não o JSON cru):**
+
+   Colar o JSON diretamente costuma quebrar por causa de aspas curvas
+   (“ ”) inseridas por alguns editores/navegadores ao colar. Para evitar
+   isso, converta o arquivo para base64 (uma única linha, sem caracteres
+   especiais) e cole esse texto no secret.
+
+   **No Windows (PowerShell):**
+   ```powershell
+   [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\caminho\para\sa.json")) | Set-Clipboard
+   ```
+   Isso já copia o base64 pra área de transferência — é só colar direto no
+   campo do secret.
+
+   **No Mac:**
+   ```bash
+   base64 -i sa.json | pbcopy
+   ```
+
+   **No Linux:**
+   ```bash
+   base64 -w0 sa.json | xclip -selection clipboard
+   # ou, se nao tiver xclip:
+   base64 -w0 sa.json
+   # (copie manualmente a saida, sem quebrar linhas)
+   ```
+
+   Depois:
    - No GitHub: **Settings → Secrets and variables → Actions → New repository
      secret**
-   - Nome: `GSC_SERVICE_ACCOUNT_JSON`
-   - Valor: cole o **conteúdo inteiro** do arquivo JSON da chave (a nova,
-     depois de você revogar a antiga que foi exposta neste chat)
+   - Nome: `GSC_SERVICE_ACCOUNT_JSON_B64`
+   - Valor: cole o texto em base64 copiado acima (use a **chave nova**, já
+     que a antiga foi exposta neste chat e deve ser revogada)
 
 5. Vá em **Actions** no seu repositório, escolha o workflow "GSC Auto
    Indexer" e clique em **Run workflow** para testar manualmente uma vez.

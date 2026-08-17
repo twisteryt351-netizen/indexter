@@ -1,8 +1,8 @@
 {
   "service_account_file": "sa.json",
   "sitemaps": [
-    "https://seublog1.com/sitemap.xml",
-    "https://seublog2.com/sitemap.xml"
+    "https://cabinepopnews.blogspot.com/sitemap.xml",
+    "https://naoaviso.blogspot.com/sitemap.xml"
   ],
   "state_file": "state.json",
   "daily_quota": 190,

@@ -5,6 +5,6 @@
     "https://naoaviso.blogspot.com/sitemap.xml"
   ],
   "state_file": "state.json",
-  "daily_quota": 10,
-  "resubmit_after_days": 2
+  "daily_quota": 190,
+  "resubmit_after_days": 7
 }
